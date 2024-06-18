@@ -3,8 +3,10 @@ import { StyleSheet, TextInput, View, Text } from 'react-native-web'
 
 const Input = ({ title, placeholder, value, onChangeText, editable, keyboardType }) => {
     return (
-        <View style={{ flexDirection: 'col', gap: 10 }}>
-            <Text style={styles.text}>{title}</Text>
+        <View style={{ flexDirection: 'col', gap: 10, zIndex: -1 }}>
+            {title && 
+                <Text style={styles.text}>{title}</Text>
+            }
             <TextInput placeholder={placeholder} placeholderTextColor={'#A8A8A8'} keyboardType={keyboardType} style={editable === false ? styles.inputDisable : styles.textinput} value={value} onChangeText={onChangeText} editable={editable}/>
         </View>
     )

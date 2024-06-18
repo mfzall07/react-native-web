@@ -1,5 +1,7 @@
 import React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native-web';
+import { AiFillEdit } from "react-icons/ai";
+import { FaTrash } from "react-icons/fa";
 
 const CardList = ({ title, description, timestamp, status, onDelete, onEdit }) => {
     return (
@@ -8,16 +10,26 @@ const CardList = ({ title, description, timestamp, status, onDelete, onEdit }) =
                 <Text style={[styles.title, status === 'COMPLETE' && styles.completedTitle]}>{title}</Text>
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity style={styles.button} onPress={onDelete}>
-                        <Text style={styles.buttonTextDelete}>D</Text>
+                        <FaTrash style={styles.buttonTextDelete}/>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.button} onPress={onEdit}>
-                        <Text style={styles.buttonTextEdit}>E</Text>
+                        <AiFillEdit style={styles.buttonTextEdit}/>
                     </TouchableOpacity>
                 </View>
             </View>
             <Text style={styles.description} numberOfLines={1}>- {description}</Text>
-            <View style={styles.timestampContainer}>
-                <Text style={styles.timestamp}>{timestamp}</Text>
+            <View style={styles.containerStatusTime}>
+                <View style={[
+                    styles.statusContainer,
+                    status === 'TODO' && styles.statusTODO,
+                    status === 'PROGRESS' && styles.statusPROGRESS,
+                    status === 'COMPLETE' && styles.statusCOMPLETE
+                ]}>
+                    <Text style={styles.status}>{status}</Text>
+                </View>
+                <View style={styles.timestampContainer}>
+                    <Text style={styles.timestamp}>{timestamp}</Text>
+                </View>
             </View>
         </View>
     )
@@ -82,11 +94,35 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         fontSize: 12,
     },
+    containerStatusTime: {
+        flexDirection: 'row',
+        gap: 10,
+        alignItems: 'center'
+    },
+    statusContainer: {
+        width: 100,
+        borderRadius: 5,
+    },
+    statusTODO: {
+        backgroundColor: 'cyan',
+    },
+    statusPROGRESS: {
+        backgroundColor: 'orange',
+    },
+    statusCOMPLETE: {
+        backgroundColor: 'green',
+    },
     timestampContainer: {
         borderWidth: 0.5,
-        width: 50,
+        width: 150,
         borderRadius: 5,
         borderColor: '#D2D2D2',
+    },
+    status: {
+        textAlign: 'center',
+        fontWeight: '500',
+        color: 'white',
+        fontSize: 12,
     },
     timestamp: {
         textAlign: 'center',
